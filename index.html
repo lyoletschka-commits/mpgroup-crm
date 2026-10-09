@@ -124,7 +124,11 @@ async function api(method, body) {
 
 async function refresh() {
   app.innerHTML = '<div class="empty">Загружаю…</div>';
-  try { rows = (await api("GET")).rows; render(); } catch (e) { if (key) app.innerHTML = `<div class="empty">Ошибка: ${esc(e.message)}</div>`; }
+  try {
+    rows = (await api("GET")).rows;
+    if (!refresh.done) { refresh.done = true; if (!rows.some((r) => r.crm_status && r.crm_status !== "refused")) ui.chip = "new"; }
+    render();
+  } catch (e) { if (key) app.innerHTML = `<div class="empty">Ошибка: ${esc(e.message)}</div>`; }
 }
 
 async function save(id, action, value, msg) {
