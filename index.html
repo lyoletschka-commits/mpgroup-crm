@@ -95,7 +95,8 @@ function store(k, v) { try { v === undefined ? localStorage.removeItem(k) : loca
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
 
 // The bot opens this page with #k=<key>; keep the key on this device and drop it from the address bar.
-const fromHash = new URLSearchParams(location.hash.slice(1)).get("k");
+// The "CRM" menu button in Telegram passes it as ?k= (Telegram uses the #fragment for its own data).
+const fromHash = new URLSearchParams(location.hash.slice(1)).get("k") || new URLSearchParams(location.search).get("k");
 if (fromHash) { store("crmKey", fromHash); history.replaceState(null, "", location.pathname); }
 let key = load("crmKey") || fromHash;
 
