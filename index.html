@@ -181,7 +181,7 @@ function render() {
 }
 
 function rowHtml(r) {
-  const srcName = { idealista: "Idealista", fotocasa: "Fotocasa", own: "💎 Эксклюзив" }[r.source] || r.source;
+  const srcName = { idealista: "Idealista", fotocasa: "Fotocasa", own: "💎 Эксклюзив", boe: "🔨 BOE" }[r.source] || r.source;
   const srcLink = r.link !== r.url ? `<a class="src" href="${esc(r.url)}" target="_blank" rel="noopener">${srcName} ↗</a>` : `<span class="src">${srcName}</span>`;
   const notes = r.notes;
   return `<tr data-id="${r.id}" class="${isDue(r) ? "due" : ""}">
